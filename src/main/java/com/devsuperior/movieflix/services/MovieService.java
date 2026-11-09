@@ -30,8 +30,8 @@ public class MovieService {
     }
 
     @Transactional(readOnly = true)
-    public Page<MovieCardDTO> findAllPaged(Pageable pageable) {
-        Page<Movie> result = repository.findAll(pageable);
+    public Page<MovieCardDTO> findAllPaged(List<Long> genreId, Pageable pageable) {
+        Page<Movie> result = repository.findAllPaged(genreId, pageable);
 
         return result.map(MovieCardDTO::new);
     }

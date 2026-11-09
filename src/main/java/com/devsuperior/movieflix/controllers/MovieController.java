@@ -10,10 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,10 +31,11 @@ public class MovieController {
     @PreAuthorize("hasAnyRole('VISITOR', 'MEMBER')")
     @GetMapping
     public ResponseEntity<Page<MovieCardDTO>> findAll(
+            @RequestParam(required = false) List<Long> genreId,
             @PageableDefault(sort = "title", direction = Sort.Direction.ASC)
             Pageable pageable
     ) {
-        Page<MovieCardDTO> list = service.findAllPaged(pageable);
+        Page<MovieCardDTO> list = service.findAllPaged(genreId, pageable);
 
         return ResponseEntity.ok(list);
     }
