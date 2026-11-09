@@ -9,5 +9,5 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     @Query( "SELECT m FROM Movie m JOIN FETCH m.genre WHERE m.id = :id")
-    List<Movie> findMovieWithDetails(Long id);
+    Movie findMovieWithDetails(Long id);
 }
